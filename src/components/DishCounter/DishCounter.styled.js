@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Field } from 'formik';
 
 export const DishImage = styled.img`
   display: block;
@@ -24,7 +23,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Input = styled(Field)`
+export const Input = styled.input`
   margin-left: 15px;
   display: block;
   padding: 10px;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import {
   Container,
@@ -8,7 +8,6 @@ import {
   CardWrapepr,
 } from './ShopsList.styled';
 import { MenuCard } from 'components/MenuCard/MenuCard';
-// import shopsData from '../../services/shopsData';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { dishesSelectors, dishesOperations } from 'redux/dishes';
@@ -22,7 +21,8 @@ export const ShopsList = () => {
   }, [dispatch]);
 
   const changeShop = e => {
-    const element = e.currentTarget;
+    const shop = e.currentTarget.name;
+    console.log(shop);
   };
 
   return (
