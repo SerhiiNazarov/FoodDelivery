@@ -57,6 +57,11 @@ export const Button = styled.button`
   }
 `;
 
+export const Text = styled.p`
+  margin-top: 25px;
+  margin-left: 450px;
+`;
+
 export const Label = styled.label`
   display: block;
   margin-bottom: 20px;

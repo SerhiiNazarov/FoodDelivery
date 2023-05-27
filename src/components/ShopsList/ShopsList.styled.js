@@ -5,7 +5,11 @@ export const Container = styled.div`
   align-items: center;
 `;
 
-export const Text = styled.div``;
+export const Text = styled.div`
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: larger;
+`;
 
 export const BtnWrapper = styled.div`
   display: flex;

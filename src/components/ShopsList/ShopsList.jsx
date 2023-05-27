@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
   Container,
@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dishesSelectors, dishesOperations } from 'redux/dishes';
 
 export const ShopsList = () => {
+  const [shopName, setShopName] = useState('');
+
   const dishes = useSelector(dishesSelectors.selectDishes);
   const dispatch = useDispatch();
 
@@ -22,32 +24,38 @@ export const ShopsList = () => {
 
   const changeShop = e => {
     const shop = e.currentTarget.name;
-    console.log(shop);
+    setShopName(shop);
+    // e.currentTarget.style.backgroundColor = 'red';
   };
 
   return (
-    <Container>
-      <BtnWrapper>
-        <Text>Shops:</Text>
-        <Btn type="button" name="McDonalds" onClick={changeShop}>
-          McDonald's
-        </Btn>
-        <Btn type="button" name="KFS" onClick={changeShop}>
-          KFS
-        </Btn>
-        <Btn type="button" name="Domino's Pizza" onClick={changeShop}>
-          Domino's Pizza
-        </Btn>
-        <Btn type="button" name=" Burger King" onClick={changeShop}>
-          Burger King
-        </Btn>
-        <Btn type="button" name="Lviv Croissants" onClick={changeShop}>
-          Lviv Croissants
-        </Btn>
-      </BtnWrapper>
-      <CardWrapepr>
-        {dishes && dishes.map(dish => <MenuCard key={dish.id} dishes={dish} />)}
-      </CardWrapepr>
-    </Container>
+    <>
+      <Text>{shopName}</Text>
+      <Container>
+        <BtnWrapper>
+          <Text>Shops:</Text>
+          <Btn type="button" name="McDonald`s" onClick={changeShop}>
+            McDonald's
+          </Btn>
+          <Btn type="button" name="KFS" onClick={changeShop}>
+            KFS
+          </Btn>
+          <Btn type="button" name="Domino's Pizza" onClick={changeShop}>
+            Domino's Pizza
+          </Btn>
+          <Btn type="button" name=" Burger King" onClick={changeShop}>
+            Burger King
+          </Btn>
+          <Btn type="button" name="Lviv Croissants" onClick={changeShop}>
+            Lviv Croissants
+          </Btn>
+        </BtnWrapper>
+
+        <CardWrapepr>
+          {dishes &&
+            dishes.map(dish => <MenuCard key={dish.id} dishes={dish} />)}
+        </CardWrapepr>
+      </Container>
+    </>
   );
 };

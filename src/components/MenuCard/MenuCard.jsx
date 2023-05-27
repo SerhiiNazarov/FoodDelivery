@@ -12,6 +12,7 @@ export const MenuCard = ({ dishes }) => {
     <CardWrapper>
       <CardImage src={dishes.image} alt={dishes.title} />
       <CardText>{dishes.title}</CardText>
+      <CardText>{dishes.price}</CardText>
       <CardBtn type="button" onClick={changeOrderList}>
         Add to order
       </CardBtn>

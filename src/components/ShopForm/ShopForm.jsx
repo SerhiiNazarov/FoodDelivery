@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, ErrorMessage } from 'formik';
 import {
   Container,
@@ -6,6 +6,7 @@ import {
   Input,
   Label,
   Button,
+  Text,
   DishContainer,
   UserContainer,
 } from './ShopForm.styled';
@@ -13,7 +14,12 @@ import {
 import { DishList } from '../DishList/DishList';
 
 export const ShopForm = () => {
+  const [totalPrice, setTotalPrice] = useState(0);
   const handleSubmit = ({ name, phone, email, address }, { resetForm }) => {};
+
+  const handlePriceChange = price => {
+    setTotalPrice(price);
+  };
 
   return (
     <Formik
@@ -66,10 +72,12 @@ export const ShopForm = () => {
             </Label>
           </UserContainer>
           <DishContainer>
-            <DishList />
+            <DishList handlePriceChange={handlePriceChange} />
           </DishContainer>
         </Container>
+
         <Button type="submit">Submit</Button>
+        <Text>Total price: {totalPrice}</Text>
       </Formfield>
     </Formik>
   );

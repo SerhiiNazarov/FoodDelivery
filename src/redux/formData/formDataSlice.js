@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const formDataSlice = createSlice({
   name: ' formData',
-  initialState: { formData: [] },
+  initialState: { formData: {} },
   reducers: {
     changeformData(state, { payload }) {
-      state.formData = [...state.formData, payload];
+      state.formData = { ...payload };
     },
   },
 });

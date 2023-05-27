@@ -17,7 +17,9 @@ export const CardImage = styled.img`
   border-radius: 10px;
 `;
 
-export const CardText = styled.p``;
+export const CardText = styled.p`
+  margin: 5px;
+`;
 
 export const CardBtn = styled.button`
   align-self: flex-end;
