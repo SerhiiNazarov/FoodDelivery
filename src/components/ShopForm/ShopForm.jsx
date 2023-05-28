@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Formik, ErrorMessage } from 'formik';
 import {
   Container,
@@ -10,11 +11,13 @@ import {
   DishContainer,
   UserContainer,
 } from './ShopForm.styled';
-
-import { DishList } from '../DishList/DishList';
+import { getOrderValue } from 'redux/order/orderSelectors.js';
+import { DishCounter } from '../DishCounter/DishCounter';
 
 export const ShopForm = () => {
   const [totalPrice, setTotalPrice] = useState(0);
+  const orders = useSelector(getOrderValue);
+
   const handleSubmit = ({ name, phone, email, address }, { resetForm }) => {};
 
   const handlePriceChange = price => {
@@ -72,7 +75,17 @@ export const ShopForm = () => {
             </Label>
           </UserContainer>
           <DishContainer>
-            <DishList handlePriceChange={handlePriceChange} />
+            {orders.length !== 0 ? (
+              orders.map((order, index) => (
+                <DishCounter
+                  key={index}
+                  orders={order}
+                  handlePriceChange={handlePriceChange}
+                />
+              ))
+            ) : (
+              <p>You have no orders</p>
+            )}
           </DishContainer>
         </Container>
 

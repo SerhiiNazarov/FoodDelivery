@@ -20,11 +20,14 @@ export const ShopsList = () => {
 
   useEffect(() => {
     dispatch(dishesOperations.fetchDishes());
-  }, [dispatch]);
+  }, [shopName, dispatch]);
 
   const changeShop = e => {
     const shop = e.currentTarget.name;
     setShopName(shop);
+    const elements = document.getElementsByTagName('button');
+    // const firstElement = elements[0];
+    console.log(elements);
     // e.currentTarget.style.backgroundColor = 'red';
   };
 
@@ -52,8 +55,11 @@ export const ShopsList = () => {
         </BtnWrapper>
 
         <CardWrapepr>
-          {dishes &&
-            dishes.map(dish => <MenuCard key={dish.id} dishes={dish} />)}
+          {dishes && shopName !== '' ? (
+            dishes.map(dish => <MenuCard key={dish.id} dishes={dish} />)
+          ) : (
+            <p>Please select a restaurant</p>
+          )}
         </CardWrapepr>
       </Container>
     </>
