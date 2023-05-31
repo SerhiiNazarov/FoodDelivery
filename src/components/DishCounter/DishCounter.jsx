@@ -5,47 +5,53 @@ import {
   DishImage,
   Input,
   ContentWrapper,
+  Btn,
+  Icon,
 } from './DishCounter.styled';
 
-const orderValues = {};
-const totalPriceObj = {};
+import { useDispatch } from 'react-redux';
+// import { changeformData } from 'redux/formData/formDataSlice';
+import { deleteOrder } from 'redux/order/orderSlice';
 
-const changePriceValue = handlePriceChange => {
-  const values = Object.values(totalPriceObj);
-  const sum = values.reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
-    0
-  );
-  handlePriceChange(sum);
-};
+// const orderValues = {};
 
-export const DishCounter = ({
-  orders: { image, title, price },
-  handlePriceChange,
-}) => {
-  const [priceValue, setPriceValue] = useState(Math.round(price));
+export const DishCounter = ({ orders, handlePriceChange }) => {
+  const [priceValue, setPriceValue] = useState(Math.round(orders.price));
+  let priceObj = {};
+
+  const dispatch = useDispatch();
 
   const changeInput = event => {
-    const orderName = event.currentTarget.name;
     const orderValue = event.currentTarget.value;
-    const orderQuantity = price * orderValue;
-    orderValues[orderName] = orderValue;
-    totalPriceObj[orderName] = orderQuantity;
+    const orderQuantity = orders.price * orderValue;
+    // orderValues[orderName] = orderValue;
     setPriceValue(orderQuantity);
-    changePriceValue(handlePriceChange);
+    priceObj[orders.title] = orderQuantity;
+    handlePriceChange(priceObj);
+    // dispatch(changeformData(orderValues));
   };
 
   return (
     <Container>
-      <DishImage src={image} alt={title} />
+      <DishImage src={orders.image} alt={orders.title} />
       <ContentWrapper>
-        <Text>{title}</Text>
+        <Btn
+          type="button"
+          onClick={() => {
+            priceObj[orders.title] = 0;
+            handlePriceChange(priceObj);
+            dispatch(deleteOrder(orders.id));
+          }}
+        >
+          <Icon size={25} />
+        </Btn>
+        <Text>{orders.title}</Text>
         <Text>Price: {priceValue} </Text>
         <Input
           type="number"
           min="1"
           max="10"
-          name={title}
+          name={orders.title}
           placeholder={0}
           onChange={changeInput}
         />

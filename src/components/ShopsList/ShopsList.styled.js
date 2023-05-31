@@ -27,16 +27,18 @@ export const Btn = styled.button`
   padding: 10px 15px;
   border-radius: 10px;
   cursor: pointer;
+  color: ${props => props.theme.btnColor};
+  background-color: ${props => props.theme.btnBackground};
 
   &:hover {
     color: white;
     background-color: orangered;
   }
 
-  &:focus {
+  /* &:focus {
     color: white;
     background-color: orangered;
-  }
+  } */
 `;
 
 export const CardWrapepr = styled.div`

@@ -12,16 +12,33 @@ import {
   UserContainer,
 } from './ShopForm.styled';
 import { getOrderValue } from 'redux/order/orderSelectors.js';
+// import { getformData } from 'redux/formData/formDataSelectors';
 import { DishCounter } from '../DishCounter/DishCounter';
 
+let totalPriceObj = {};
+
 export const ShopForm = () => {
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(null);
+
   const orders = useSelector(getOrderValue);
 
-  const handleSubmit = ({ name, phone, email, address }, { resetForm }) => {};
+  // const formData = useSelector(getformData);
+
+  const handleSubmit = ({ name, phone, email, address }, { resetForm }) => {
+    totalPriceObj = {};
+  };
 
   const handlePriceChange = price => {
-    setTotalPrice(price);
+    totalPriceObj = { ...totalPriceObj, ...price };
+
+    const values = Object.values(totalPriceObj);
+
+    const sum = values.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+
+    setTotalPrice(sum);
   };
 
   return (
@@ -76,9 +93,9 @@ export const ShopForm = () => {
           </UserContainer>
           <DishContainer>
             {orders.length !== 0 ? (
-              orders.map((order, index) => (
+              orders.map(order => (
                 <DishCounter
-                  key={index}
+                  key={order.id}
                   orders={order}
                   handlePriceChange={handlePriceChange}
                 />

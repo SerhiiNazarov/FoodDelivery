@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { RiDeleteBin5Line } from 'react-icons/ri';
 
 export const DishImage = styled.img`
   display: block;
@@ -8,6 +9,7 @@ export const DishImage = styled.img`
 `;
 
 export const Text = styled.p`
+  margin: 10px;
   display: block;
 `;
 
@@ -51,4 +53,17 @@ export const ContentWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+export const Btn = styled.button`
+  display: flex;
+  border: none;
+  background-color: transparent;
+  align-self: flex-end;
+`;
+
+export const Icon = styled(RiDeleteBin5Line)`
+  color: inherit;
+  &:hover {
+    color: orangered;
+  }
 `;

@@ -5,7 +5,9 @@ import { CardWrapper, CardBtn, CardImage, CardText } from './MenuCard.styled';
 
 export const MenuCard = ({ dishes }) => {
   const dispatch = useDispatch();
-  const changeOrderList = () => {
+
+  const changeOrderList = e => {
+    e.currentTarget.style.borderColor = 'tomato';
     dispatch(changeOrder(dishes));
   };
   return (
