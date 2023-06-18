@@ -15,43 +15,46 @@ import { deleteOrder } from 'redux/order/orderSlice';
 
 // const orderValues = {};
 
-export const DishCounter = ({ orders, handlePriceChange }) => {
-  const [priceValue, setPriceValue] = useState(Math.round(orders.price));
+export const DishCounter = ({
+  orders: { title, price, id, image },
+  handlePriceChange,
+}) => {
+  const [priceValue, setPriceValue] = useState(Math.round(price));
   let priceObj = {};
 
   const dispatch = useDispatch();
 
   const changeInput = event => {
     const orderValue = event.currentTarget.value;
-    const orderQuantity = orders.price * orderValue;
+    const orderQuantity = Math.round(price) * orderValue;
     // orderValues[orderName] = orderValue;
     setPriceValue(orderQuantity);
-    priceObj[orders.title] = orderQuantity;
+    priceObj[title] = orderQuantity;
     handlePriceChange(priceObj);
     // dispatch(changeformData(orderValues));
   };
 
   return (
     <Container>
-      <DishImage src={orders.image} alt={orders.title} />
+      <DishImage src={image} alt={title} />
       <ContentWrapper>
         <Btn
           type="button"
           onClick={() => {
-            priceObj[orders.title] = 0;
+            priceObj[title] = 0;
             handlePriceChange(priceObj);
-            dispatch(deleteOrder(orders.id));
+            dispatch(deleteOrder(id));
           }}
         >
           <Icon size={25} />
         </Btn>
-        <Text>{orders.title}</Text>
+        <Text>{title}</Text>
         <Text>Price: {priceValue} </Text>
         <Input
           type="number"
           min="1"
           max="10"
-          name={orders.title}
+          name={title}
           placeholder={0}
           onChange={changeInput}
         />

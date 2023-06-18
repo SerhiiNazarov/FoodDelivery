@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Formik, ErrorMessage } from 'formik';
 import {
@@ -15,22 +15,11 @@ import { getOrderValue } from 'redux/order/orderSelectors.js';
 // import { getformData } from 'redux/formData/formDataSelectors';
 import { DishCounter } from '../DishCounter/DishCounter';
 
-let totalPriceObj = {};
-
 export const ShopForm = () => {
   const [totalPrice, setTotalPrice] = useState(null);
+  const [totalPriceObj, setTotalPriceObj] = useState({});
 
-  const orders = useSelector(getOrderValue);
-
-  // const formData = useSelector(getformData);
-
-  const handleSubmit = ({ name, phone, email, address }, { resetForm }) => {
-    totalPriceObj = {};
-  };
-
-  const handlePriceChange = price => {
-    totalPriceObj = { ...totalPriceObj, ...price };
-
+  useEffect(() => {
     const values = Object.values(totalPriceObj);
 
     const sum = values.reduce(
@@ -39,6 +28,18 @@ export const ShopForm = () => {
     );
 
     setTotalPrice(sum);
+  }, [totalPriceObj]);
+
+  const orders = useSelector(getOrderValue);
+
+  const handleSubmit = ({ name, phone, email, address }, { resetForm }) => {
+    setTotalPriceObj({});
+  };
+
+  const handlePriceChange = price => {
+    setTotalPriceObj(prevState => {
+      return { ...prevState, ...price };
+    });
   };
 
   return (

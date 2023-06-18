@@ -34,11 +34,6 @@ export const Btn = styled.button`
     color: white;
     background-color: orangered;
   }
-
-  /* &:focus {
-    color: white;
-    background-color: orangered;
-  } */
 `;
 
 export const CardWrapepr = styled.div`

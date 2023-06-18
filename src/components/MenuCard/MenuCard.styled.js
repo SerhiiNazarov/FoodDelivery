@@ -32,9 +32,4 @@ export const CardBtn = styled.button`
     color: white;
     background-color: orangered;
   }
-
-  &:focus {
-    color: white;
-    background-color: orangered;
-  }
 `;
