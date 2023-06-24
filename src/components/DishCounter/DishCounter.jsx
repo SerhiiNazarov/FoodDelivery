@@ -13,25 +13,19 @@ import { useDispatch } from 'react-redux';
 // import { changeformData } from 'redux/formData/formDataSlice';
 import { deleteOrder } from 'redux/order/orderSlice';
 
-// const orderValues = {};
-
 export const DishCounter = ({
   orders: { title, price, id, image },
   handlePriceChange,
 }) => {
   const [priceValue, setPriceValue] = useState(Math.round(price));
-  let priceObj = {};
 
   const dispatch = useDispatch();
 
   const changeInput = event => {
     const orderValue = event.currentTarget.value;
     const orderQuantity = Math.round(price) * orderValue;
-    // orderValues[orderName] = orderValue;
     setPriceValue(orderQuantity);
-    priceObj[title] = orderQuantity;
-    handlePriceChange(priceObj);
-    // dispatch(changeformData(orderValues));
+    handlePriceChange({ [title]: { orderQuantity, orderValue } });
   };
 
   return (
@@ -41,8 +35,7 @@ export const DishCounter = ({
         <Btn
           type="button"
           onClick={() => {
-            priceObj[title] = 0;
-            handlePriceChange(priceObj);
+            handlePriceChange({ [title]: { orderQuantity: 0, orderValue: 0 } });
             dispatch(deleteOrder(id));
           }}
         >

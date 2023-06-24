@@ -18,9 +18,23 @@ import { DishCounter } from '../DishCounter/DishCounter';
 export const ShopForm = () => {
   const [totalPrice, setTotalPrice] = useState(null);
   const [totalPriceObj, setTotalPriceObj] = useState({});
+  const [ordersObj, setOrdersObj] = useState({});
+
+  const orders = useSelector(getOrderValue);
 
   useEffect(() => {
-    const values = Object.values(totalPriceObj);
+    const entries = Object.entries(totalPriceObj);
+    let objQuantity = {};
+    let objValue = {};
+    for (const entrie of entries) {
+      objQuantity[entrie[0]] = entrie[1].orderQuantity;
+      if (entrie[1].orderValue !== 0) {
+        objValue[entrie[0]] = entrie[1].orderValue;
+      }
+    }
+
+    setOrdersObj({ ...objValue });
+    const values = Object.values(objQuantity);
 
     const sum = values.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
@@ -30,10 +44,10 @@ export const ShopForm = () => {
     setTotalPrice(sum);
   }, [totalPriceObj]);
 
-  const orders = useSelector(getOrderValue);
-
-  const handleSubmit = ({ name, phone, email, address }, { resetForm }) => {
+  const handleSubmit = (values, { resetForm }) => {
+    console.log(ordersObj);
     setTotalPriceObj({});
+    resetForm();
   };
 
   const handlePriceChange = price => {
