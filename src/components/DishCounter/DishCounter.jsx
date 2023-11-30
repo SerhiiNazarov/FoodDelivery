@@ -10,8 +10,8 @@ import {
 } from './DishCounter.styled';
 
 import { useDispatch } from 'react-redux';
-// import { changeformData } from 'redux/formData/formDataSlice';
-import { deleteOrder } from 'redux/order/orderSlice';
+
+import { deleteDish } from 'redux/order/orderSlice';
 
 export const DishCounter = ({
   orders: { title, price, id, image },
@@ -36,7 +36,7 @@ export const DishCounter = ({
           type="button"
           onClick={() => {
             handlePriceChange({ [title]: { orderQuantity: 0, orderValue: 0 } });
-            dispatch(deleteOrder(id));
+            dispatch(deleteDish(id));
           }}
         >
           <Icon size={25} />

@@ -8,10 +8,10 @@ export const Container = styled.div`
 
 export const Formfield = styled(Form)`
   position: relative;
-  height: 450px;
+  height: 550px;
   margin-top: 10px;
   margin-bottom: 30px;
-  border: 1px solid black;
+
   padding: 20px;
   border-radius: 10px;
 `;
@@ -65,13 +65,13 @@ export const Text = styled.p`
 export const Label = styled.label`
   display: block;
   margin-bottom: 20px;
-  color: var(--secondaryTextColor);
+
   font-weight: 500;
   font-size: 20px;
 `;
 
 export const DishContainer = styled.div`
-  max-height: 350px;
+  max-height: 400px;
   overflow-y: auto;
   border: 1px solid black;
   flex: 1;

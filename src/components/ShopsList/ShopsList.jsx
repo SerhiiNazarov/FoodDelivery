@@ -8,12 +8,13 @@ import {
   CardWrapepr,
 } from './ShopsList.styled';
 import { MenuCard } from 'components/MenuCard/MenuCard';
+import { BackBtn } from 'components/BackBtn';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { dishesSelectors, dishesOperations } from 'redux/dishes';
 
 export const ShopsList = () => {
-  const [shopName, setShopName] = useState('');
+  const [selectRestaurant, setSelectRestaurant] = useState('');
   const [activeButton, setActiveButton] = useState(null);
 
   const dishes = useSelector(dishesSelectors.selectDishes);
@@ -21,80 +22,91 @@ export const ShopsList = () => {
 
   useEffect(() => {
     dispatch(dishesOperations.fetchDishes());
-  }, [shopName, dispatch]);
+  }, [selectRestaurant, dispatch]);
 
-  const changeShop = event => {
-    setShopName(event.currentTarget.name);
+  const onSelect = event => {
+    setSelectRestaurant(event.currentTarget.name);
     setActiveButton(event.currentTarget.id);
   };
 
   const isActive = id => {
     return {
       btnColor: id === Number(activeButton) ? 'white' : 'inherit',
-      btnBackground: id === Number(activeButton) ? 'orangered' : 'inherit',
+      btnBackground: id === Number(activeButton) ? 'orangered' : '#F5ECEC',
     };
   };
 
   return (
     <>
-      <Text>{shopName}</Text>
+      {selectRestaurant && (
+        <>
+          <BackBtn link="/" />
+          <Text>{selectRestaurant}</Text>
+        </>
+      )}
       <Container>
-        <BtnWrapper>
-          <Text>Shops:</Text>
-          <Btn
-            type="button"
-            id={1}
-            name="McDonald`s"
-            onClick={changeShop}
-            theme={isActive(1)}
-          >
-            McDonald's
-          </Btn>
-          <Btn
-            type="button"
-            id={2}
-            name="KFS"
-            onClick={changeShop}
-            theme={isActive(2)}
-          >
-            KFS
-          </Btn>
-          <Btn
-            type="button"
-            id={3}
-            name="Domino's Pizza"
-            onClick={changeShop}
-            theme={isActive(3)}
-          >
-            Domino's Pizza
-          </Btn>
-          <Btn
-            type="button"
-            id={4}
-            name="Burger King"
-            onClick={changeShop}
-            theme={isActive(4)}
-          >
-            Burger King
-          </Btn>
-          <Btn
-            type="button"
-            id={5}
-            name="Lviv Croissants"
-            onClick={changeShop}
-            theme={isActive(5)}
-          >
-            Lviv Croissants
-          </Btn>
-        </BtnWrapper>
+        {!selectRestaurant && (
+          <>
+            <Text>Restaurants:</Text>
+            <BtnWrapper>
+              <Btn
+                type="button"
+                id={1}
+                name="McDonald`s"
+                onClick={onSelect}
+                theme={isActive(1)}
+              >
+                McDonald's
+              </Btn>
+              <Btn
+                type="button"
+                id={2}
+                name="KFS"
+                onClick={onSelect}
+                theme={isActive(2)}
+              >
+                KFS
+              </Btn>
+              <Btn
+                type="button"
+                id={3}
+                name="Domino's Pizza"
+                onClick={onSelect}
+                theme={isActive(3)}
+              >
+                Domino's Pizza
+              </Btn>
+              <Btn
+                type="button"
+                id={4}
+                name="Burger King"
+                onClick={onSelect}
+                theme={isActive(4)}
+              >
+                Burger King
+              </Btn>
+              <Btn
+                type="button"
+                id={5}
+                name="Lviv Croissants"
+                onClick={onSelect}
+                theme={isActive(5)}
+              >
+                Lviv Croissants
+              </Btn>
+            </BtnWrapper>
+          </>
+        )}
 
-        <CardWrapepr>
-          {dishes && shopName !== '' ? (
-            dishes.map(dish => <MenuCard key={dish.id} dishes={dish} />)
-          ) : (
-            <p>Please select a restaurant</p>
-          )}
-        </CardWrapepr>
+        {selectRestaurant && (
+          <CardWrapepr>
+            {dishes && selectRestaurant !== '' ? (
+              dishes.map(dish => <MenuCard key={dish.id} dish={dish} />)
+            ) : (
+              <p>Please select a restaurant</p>
+            )}
+          </CardWrapepr>
+        )}
       </Container>
     </>
   );
