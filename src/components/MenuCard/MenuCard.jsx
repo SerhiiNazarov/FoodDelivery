@@ -1,17 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { addDish, deleteDish } from 'redux/order/orderSlice';
 import { CardWrapper, CardBtn, CardImage, CardText } from './MenuCard.styled';
-
-import { getOrderValue } from 'redux/order/orderSelectors';
 
 export const MenuCard = ({ dish }) => {
   const [toggleOrder, setToggleOrder] = useState(false);
 
   const dispatch = useDispatch();
-  // const orders = useSelector(getOrderValue);
-
-  // const defaultValue = () => {};
 
   const changeOrderList = () => {
     if (!toggleOrder) {
