@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Text,
@@ -18,12 +18,20 @@ export const DishCounter = ({
   handlePriceChange,
 }) => {
   const [priceValue, setPriceValue] = useState(Math.round(price));
+  const [inputValue, setInputValue] = useState(1);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    handlePriceChange({
+      [title]: { orderQuantity: Math.round(price), orderValue: 1 },
+    });
+  }, []);
 
   const changeInput = event => {
     const orderValue = event.currentTarget.value;
     const orderQuantity = Math.round(price) * orderValue;
+    setInputValue(orderValue);
     setPriceValue(orderQuantity);
     handlePriceChange({ [title]: { orderQuantity, orderValue } });
   };
@@ -48,7 +56,7 @@ export const DishCounter = ({
           min="1"
           max="10"
           name={title}
-          placeholder={0}
+          value={inputValue}
           onChange={changeInput}
         />
       </ContentWrapper>

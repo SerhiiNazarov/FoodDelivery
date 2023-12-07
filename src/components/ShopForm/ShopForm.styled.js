@@ -3,26 +3,36 @@ import { Form, Field } from 'formik';
 
 export const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column-reverse;
+
+  @media screen and (min-width: 768px) {
+    justify-content: space-between;
+    flex-direction: row;
+  }
 `;
 
 export const Formfield = styled(Form)`
-  position: relative;
-  height: 550px;
-  margin-top: 10px;
-  margin-bottom: 30px;
-
-  padding: 20px;
+  padding: 20px 0;
   border-radius: 10px;
+
+  @media screen and (min-width: 768px) {
+  }
+
+  @media screen and (min-width: 1440px) {
+  }
 `;
 
 export const Input = styled(Field)`
+  margin-top: 10px;
   display: block;
   width: 250px;
   padding: 10px;
-  border: 1px solid black;
+  border: none;
+  background-color: #f5ecec;
+  transition: all 0.3s ease-out;
+  box-shadow: 2px 4px 9px 0px #a68dae47;
   border-radius: 4px;
-  cursor: pointer;
+
   font-size: 15px;
 
   &:focus {
@@ -30,7 +40,7 @@ export const Input = styled(Field)`
   }
 
   &:hover {
-    border: 1px solid orangered;
+    box-shadow: 2px 4px 9px 0px #a31212;
   }
 
   &:hover::-webkit-input-placeholder {
@@ -39,11 +49,10 @@ export const Input = styled(Field)`
 `;
 
 export const Button = styled.button`
-  position: absolute;
-  right: 50px;
-  margin-top: 20px;
   padding: 10px 15px;
   width: 150px;
+  font-size: 16px;
+  border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
   transition: opacity 250ms var(--timingFn);
@@ -53,36 +62,62 @@ export const Button = styled.button`
   &:hover {
     color: white;
     opacity: 1;
-    background-color: orangered;
+    box-shadow: 2px 4px 9px 0px #a31212;
+    background-color: #a31212;
   }
 `;
 
-export const Text = styled.p`
-  margin-top: 25px;
-  margin-left: 450px;
-`;
-
 export const Label = styled.label`
-  display: block;
-  margin-bottom: 20px;
+  color: white;
 
   font-weight: 500;
   font-size: 20px;
 `;
 
 export const DishContainer = styled.div`
-  max-height: 400px;
-  overflow-y: auto;
-  border: 1px solid black;
-  flex: 1;
-  margin-left: 30px;
   height: 100%;
-  padding: 20px;
   border-radius: 10px;
+
+  @media screen and (min-width: 768px) {
+    flex: 1;
+  }
+
+  @media screen and (min-width: 1440px) {
+  }
 `;
 
 export const UserContainer = styled.div`
-  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   padding: 20px;
+  border: none;
+  margin-right: 50px;
+`;
+
+export const TotalPrice = styled.div`
+  padding: 10px 15px;
+  text-align: center;
+  background-color: #f5ecec;
+  font-size: 16px;
+  border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
+  transition: opacity 250ms var(--timingFn);
+
+  @media screen and (min-width: 768px) {
+    min-width: 150px;
+  }
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 30px;
+  margin-top: 30px;
+
+  @media screen and (min-width: 768px) {
+    gap: 90px;
+  }
 `;

@@ -5,8 +5,8 @@ export const ordersData = async data => {
   await axios
     .post('/orders', data)
     .then(response => {
-      console.log(response);
-      // return response.data;
+    
+      return response.data;
     })
     .catch(error => {
       console.error(error.message);

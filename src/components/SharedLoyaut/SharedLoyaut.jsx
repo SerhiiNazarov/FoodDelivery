@@ -1,18 +1,24 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Container, Header, Link, Title } from './SharedLoyaut.styled';
+import {
+  Container,
+  Header,
+  Link,
+  Title,
+  LinkWrapper,
+} from './SharedLoyaut.styled';
 
 export const SharedLayout = () => {
   return (
     <Container>
       <Header>
         <Title>Food Delivery</Title>
-        <nav>
+        <LinkWrapper>
           <Link to="/" end>
             Shopping Page
           </Link>
-          <Link to="shopingCard">Order</Link>
-        </nav>
+          <Link to="shopingCard">Shopping List</Link>
+        </LinkWrapper>
       </Header>
       <Suspense fallback={<div>Loading page...</div>}>
         <Outlet />

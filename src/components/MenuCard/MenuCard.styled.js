@@ -36,10 +36,10 @@ export const CardBtn = styled.button`
   width: 120px;
   padding: 10px 15px;
   border-radius: 10px;
-  background-color: ${props => (props.onActive ? '#e1b3ad' : 'white')};
+  background-color: ${props => (props.theme === true ? '#e1b3ad' : 'white')};
   border: none;
   box-shadow: 2px 4px 9px 0px
-    ${props => (props.onActive ? '#e11e1e' : '#a68dae47')};
+    ${props => (props.theme === true ? '#e11e1e' : '#a68dae47')};
 
   cursor: pointer;
   transition: all 0.3s ease-out;

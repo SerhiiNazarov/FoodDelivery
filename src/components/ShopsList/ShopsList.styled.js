@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 export const Container = styled.div``;
 
@@ -19,7 +20,6 @@ export const BtnWrapper = styled.div`
   align-items: center;
 
   gap: 30px;
-  /* box-shadow: 2px 4px 9px 0px #a68dae47; */
 
   border-radius: 10px;
 
@@ -57,7 +57,7 @@ export const Btn = styled.button`
   }
 `;
 
-export const CardWrapepr = styled.div`
+export const CardList = styled.div`
   overflow-y: auto;
   display: grid;
 
@@ -72,4 +72,32 @@ export const CardWrapepr = styled.div`
   @media screen and (min-width: 1440px) {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   }
+`;
+
+export const BtnOrder = styled.span`
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+
+  box-shadow: 2px 4px 9px 0px #a68dae47;
+  cursor: pointer;
+  color: black;
+  background-color: #f5ecec;
+  transition: all 0.3s ease-out;
+
+  &:hover {
+    color: white;
+    background-color: #a31212;
+  }
+`;
+
+export const CardWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const Link = styled(NavLink)`
+  margin-top: 35px;
+  text-decoration: none;
 `;

@@ -5,7 +5,10 @@ import {
   Text,
   BtnWrapper,
   Btn,
-  CardWrapepr,
+  CardList,
+  BtnOrder,
+  CardWrapper,
+  Link,
 } from './ShopsList.styled';
 import { MenuCard } from 'components/MenuCard/MenuCard';
 import { BackBtn } from 'components/BackBtn';
@@ -13,11 +16,16 @@ import { BackBtn } from 'components/BackBtn';
 import { useDispatch, useSelector } from 'react-redux';
 import { dishesSelectors, dishesOperations } from 'redux/dishes';
 
+import { shopsList } from 'utils/shopsList';
+import { getOrderValue } from 'redux/order/orderSelectors';
+import { deleteAllOrder } from 'redux/order/orderSlice';
+
 export const ShopsList = () => {
   const [selectRestaurant, setSelectRestaurant] = useState('');
   const [activeButton, setActiveButton] = useState(null);
 
   const dishes = useSelector(dishesSelectors.selectDishes);
+  const orders = useSelector(getOrderValue);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,15 +40,20 @@ export const ShopsList = () => {
   const isActive = id => {
     return {
       btnColor: id === Number(activeButton) ? 'white' : 'inherit',
-      btnBackground: id === Number(activeButton) ? 'orangered' : '#F5ECEC',
+      btnBackground: id === Number(activeButton) ? '#a31212' : '#F5ECEC',
     };
+  };
+
+  const onBackBtnClick = () => {
+    setSelectRestaurant('');
+    dispatch(deleteAllOrder());
   };
 
   return (
     <>
       {selectRestaurant && (
         <>
-          <BackBtn link="/" />
+          <BackBtn link="/" onClick={onBackBtnClick} />
           <Text>{selectRestaurant}</Text>
         </>
       )}
@@ -49,63 +62,39 @@ export const ShopsList = () => {
           <>
             <Text>Restaurants:</Text>
             <BtnWrapper>
-              <Btn
-                type="button"
-                id={1}
-                name="McDonald`s"
-                onClick={onSelect}
-                theme={isActive(1)}
-              >
-                McDonald's
-              </Btn>
-              <Btn
-                type="button"
-                id={2}
-                name="KFS"
-                onClick={onSelect}
-                theme={isActive(2)}
-              >
-                KFS
-              </Btn>
-              <Btn
-                type="button"
-                id={3}
-                name="Domino's Pizza"
-                onClick={onSelect}
-                theme={isActive(3)}
-              >
-                Domino's Pizza
-              </Btn>
-              <Btn
-                type="button"
-                id={4}
-                name="Burger King"
-                onClick={onSelect}
-                theme={isActive(4)}
-              >
-                Burger King
-              </Btn>
-              <Btn
-                type="button"
-                id={5}
-                name="Lviv Croissants"
-                onClick={onSelect}
-                theme={isActive(5)}
-              >
-                Lviv Croissants
-              </Btn>
+              {shopsList &&
+                shopsList.map(shop => (
+                  <Btn
+                    key={shop.id}
+                    type="button"
+                    id={shop.id}
+                    name={shop.name}
+                    onClick={onSelect}
+                    theme={isActive(shop.id)}
+                  >
+                    {shop.name}
+                  </Btn>
+                ))}
             </BtnWrapper>
           </>
         )}
 
         {selectRestaurant && (
-          <CardWrapepr>
-            {dishes && selectRestaurant !== '' ? (
-              dishes.map(dish => <MenuCard key={dish.id} dish={dish} />)
-            ) : (
-              <p>Please select a restaurant</p>
+          <CardWrapper>
+            <CardList>
+              {dishes && selectRestaurant !== '' ? (
+                dishes.map(dish => <MenuCard key={dish.id} dish={dish} />)
+              ) : (
+                <p>Please select a restaurant</p>
+              )}
+            </CardList>
+
+            {orders.length !== 0 && (
+              <Link to="/shopingCard">
+                <BtnOrder>To Order</BtnOrder>
+              </Link>
             )}
-          </CardWrapepr>
+          </CardWrapper>
         )}
       </Container>
     </>

@@ -4,24 +4,41 @@ import { RiDeleteBin5Line } from 'react-icons/ri';
 export const DishImage = styled.img`
   display: block;
   height: 150px;
-  border: 1px solid black;
+  width: 120px;
+
   border-radius: 10px;
+
+  @media screen and (min-width: 768px) {
+    height: 150px;
+    width: auto;
+  }
+
+  @media screen and (min-width: 1440px) {
+    height: 200px;
+  }
 `;
 
 export const Text = styled.p`
   margin: 10px;
   display: block;
+  text-align: center;
 `;
 
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  border: 1px solid black;
+  box-shadow: 2px 4px 9px 0px #a68dae47;
   padding: 20px;
   border-radius: 10px;
+  background: #f5ecec;
+  transition: all 0.3s ease-out;
 
   &:not(:last-child) {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+  }
+
+  &:hover {
+    box-shadow: 2px 4px 9px 0px #a31212;
   }
 `;
 
@@ -30,21 +47,14 @@ export const Input = styled.input`
   margin-left: 15px;
   display: block;
   padding: 10px;
-  border: 1px solid black;
+  border: none;
+  box-shadow: 2px 4px 9px 0px #a68dae47;
   border-radius: 4px;
-  cursor: pointer;
   font-size: 15px;
-
-  &:focus {
-    outline-color: orangered;
-  }
+  transition: all 0.3s ease-out;
 
   &:hover {
-    border: 1px solid orangered;
-  }
-
-  &:hover::-webkit-input-placeholder {
-    color: orangered;
+    box-shadow: 2px 4px 9px 0px #a31212;
   }
 `;
 
@@ -63,6 +73,8 @@ export const Btn = styled.button`
 
 export const Icon = styled(RiDeleteBin5Line)`
   color: inherit;
+  transition: all 0.3s ease-out;
+
   &:hover {
     color: orangered;
   }

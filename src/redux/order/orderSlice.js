@@ -10,8 +10,11 @@ const orderSlice = createSlice({
     deleteDish(state, { payload }) {
       state.order = state.order.filter(item => item.id !== payload);
     },
+    deleteAllOrder(state) {
+      state.order = [];
+    },
   },
 });
 
-export const { addDish, deleteDish } = orderSlice.actions;
+export const { addDish, deleteDish, deleteAllOrder } = orderSlice.actions;
 export const orderReducer = orderSlice.reducer;

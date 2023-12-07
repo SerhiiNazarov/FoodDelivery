@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Formik, ErrorMessage } from 'formik';
-// import { Map } from 'components/Map';
-// import { useJsApiLoader } from '@react-google-maps/api';
+import { useNavigate } from 'react-router-dom';
+
 import {
   Container,
   Formfield,
   Input,
   Label,
   Button,
-  Text,
   DishContainer,
   UserContainer,
+  TotalPrice,
+  Wrapper,
 } from './ShopForm.styled';
 import { getOrderValue } from 'redux/order/orderSelectors.js';
 import { ordersData } from 'services/ordersData';
-// import { getformData } from 'redux/formData/formDataSelectors';
 import { DishCounter } from '../DishCounter/DishCounter';
-
-// const API_KEY = process.env.REACT_APP_API_KEY;
 
 export const ShopForm = () => {
   const [totalPrice, setTotalPrice] = useState(null);
@@ -26,6 +24,7 @@ export const ShopForm = () => {
   const [ordersObj, setOrdersObj] = useState({});
 
   const orders = useSelector(getOrderValue);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const entries = Object.entries(totalPriceObj);
@@ -39,8 +38,8 @@ export const ShopForm = () => {
     }
 
     setOrdersObj({ ...objValue });
-    const values = Object.values(objQuantity);
 
+    const values = Object.values(objQuantity);
     const sum = values.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
       0
@@ -53,12 +52,12 @@ export const ShopForm = () => {
     const data = {
       ...values,
       ordersObj,
-      totalPrice: totalPrice,
-      shopName: 'Mac',
+      totalPrice,
     };
     ordersData(data);
     setTotalPriceObj({});
-    // resetForm();
+    resetForm();
+    navigate('/order');
   };
 
   const handlePriceChange = price => {
@@ -67,22 +66,8 @@ export const ShopForm = () => {
     });
   };
 
-  // const defaultCenter = {
-  //   lat: -3.745,
-  //   lng: -38.523,
-  // };
-
-  // const libraries = ['places'];
-
-  // const { isLoaded } = useJsApiLoader({
-  //   id: 'google-map-script',
-  //   googleMapsApiKey: API_KEY,
-  //   libraries,
-  // });
-
   return (
     <>
-      {/* {isLoaded ? <Map center={defaultCenter} /> : <h2>Map</h2>} */}
       <Formik
         initialValues={{
           name: '',
@@ -142,13 +127,15 @@ export const ShopForm = () => {
                   />
                 ))
               ) : (
-                <p>You have no orders</p>
+                <TotalPrice>You have no orders</TotalPrice>
               )}
             </DishContainer>
           </Container>
 
-          <Button type="submit">Submit</Button>
-          <Text>Total price: {totalPrice}</Text>
+          <Wrapper>
+            <TotalPrice>Total price: {totalPrice}</TotalPrice>
+            <Button type="submit">Submit</Button>
+          </Wrapper>
         </Formfield>
       </Formik>
     </>

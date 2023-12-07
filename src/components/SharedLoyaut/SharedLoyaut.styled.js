@@ -4,6 +4,7 @@ import mainbg_light from 'images/background_light.jpg';
 
 export const Container = styled.div`
   width: 320px;
+  min-height: 650px;
   padding: 16px 16px;
   margin: 0 auto;
   background-image: url(${mainbg_light});
@@ -12,10 +13,8 @@ export const Container = styled.div`
   background-repeat: repeat-y;
 
   @media screen and (min-width: 768px) {
-    height: 100vh;
     width: 768px;
     padding: 20px 20px;
-    background-repeat: no-repeat;
   }
 
   @media screen and (min-width: 1440px) {
@@ -39,6 +38,11 @@ export const Header = styled.header`
   }
 `;
 
+export const LinkWrapper = styled.nav`
+  display: flex;
+  gap: 30px;
+`;
+
 export const Link = styled(NavLink)`
   padding: 8px 16px;
   border-radius: 8px;
@@ -46,6 +50,7 @@ export const Link = styled(NavLink)`
   color: black;
   font-weight: 500;
   box-shadow: 2px 4px 9px 0px #a68dae47;
+  background: white;
   transition: all 0.3s ease-out;
 
   &.active {
