@@ -26,7 +26,7 @@ export const DishCounter = ({
     handlePriceChange({
       [title]: { orderQuantity: Math.round(price), orderValue: 1 },
     });
-  }, []);
+  });
 
   const changeInput = event => {
     const orderValue = event.currentTarget.value;
